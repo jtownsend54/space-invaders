@@ -2,14 +2,26 @@
 using System.Collections;
 
 public class LevelManager : MonoBehaviour {
+	public static float minX;
+	public static float maxX;
+	public static float minY;
+	public static float maxY;
+
+	void Start() {
+		Vector3 min = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
+		Vector3 max = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 0));
+		minX = min.x;
+		maxX = max.x;
+		minY = min.y;
+		maxY = max.y;
+	}
+
 	public void LoadLevel(string name) {
 		Debug.Log("Load the level: " + name);
-//		Brick.breakableCount = 0;
 		Application.LoadLevel (name);
 	}
 
 	public void LoadNextLevel() {
-//		Brick.breakableCount = 0;
 		Application.LoadLevel(Application.loadedLevel + 1);
 	}
 
@@ -17,11 +29,4 @@ public class LevelManager : MonoBehaviour {
 		Debug.Log("Quit request.");
 		Application.Quit();
 	}
-
-//	public void BrickDestroyed() {
-//		// Guarding against some case where it could go under 0
-//		if (Brick.breakableCount <= 0) {
-//			LoadNextLevel();
-//		}
-//	}
 }
