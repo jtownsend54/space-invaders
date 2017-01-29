@@ -3,7 +3,6 @@ using System.Collections;
 
 public class ShipController : MonoBehaviour {
 	public float speed = 5.0f;
-//	private Camera camera;
 	private Vector3 minMaxX;
 	private Vector3 minMaxY;
 	private float padding = 0.5f;
@@ -25,6 +24,7 @@ public class ShipController : MonoBehaviour {
 			transform.position += new Vector3(0, -speed * Time.deltaTime, 0);
 		}
 
+		// Make sure the ship stays within view, with padding so it doesn't get cut off.
 		float xClamp = Mathf.Clamp (transform.position.x, minMaxX.x + padding, minMaxY.x - padding);
 		float yClamp = Mathf.Clamp (transform.position.y, minMaxX.y + padding, minMaxY.y - padding);
 		transform.position = new Vector3 (xClamp, yClamp, 0);
