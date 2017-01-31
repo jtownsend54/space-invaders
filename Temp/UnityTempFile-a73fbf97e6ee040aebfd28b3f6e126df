@@ -45,7 +45,10 @@
 -define:UNITY_EDITOR_OSX
 -define:UNITY_TEAM_LICENSE
 'Assets/Scripts/EnemyGenerator.cs'
+'Assets/Scripts/Formation.cs'
+'Assets/Scripts/LaserController.cs'
 'Assets/Scripts/LevelManager.cs'
+'Assets/Scripts/ShipCollider.cs'
 'Assets/Scripts/ShipController.cs'
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Mono/lib/mono/unity/System.Runtime.Serialization.dll'
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Mono/lib/mono/unity/System.Xml.Linq.dll'
