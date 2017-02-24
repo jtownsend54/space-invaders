@@ -6,7 +6,7 @@ public class LaserController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (transform.position.y > LevelManager.maxY) {
+		if (transform.position.y > LevelManager.maxY || transform.position.y < LevelManager.minY) {
 			Destroy(gameObject);
 		}
 	}

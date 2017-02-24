@@ -3,6 +3,7 @@ using System.Collections;
 
 public class ShipController : MonoBehaviour {
 	public float speed = 5.0f;
+	public float health = 250f;
 	public GameObject laserPrefab;
 
 	private float padding = 0.5f;
@@ -11,6 +12,22 @@ public class ShipController : MonoBehaviour {
 	void Update () {
 		moveShip ();
 		shootLaser ();
+	}
+
+	void OnTriggerEnter2D(Collider2D collider) {
+		LaserController laser = collider.gameObject.GetComponent<LaserController> ();
+		
+		if (!laser) {
+			return;
+		}
+		
+		if (laser.damage >= health) {
+			Destroy (gameObject);
+		} else {
+			health -= laser.damage;
+		}
+		
+		Destroy (laser);
 	}
 
 	private void moveShip() {
@@ -32,7 +49,8 @@ public class ShipController : MonoBehaviour {
 
 	private void shootLaser() {
 		if (Input.GetKeyUp (KeyCode.Space)) {
-			GameObject laser = Instantiate(laserPrefab, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity) as GameObject;
+
+			GameObject laser = Instantiate(laserPrefab, new Vector3(transform.position.x, transform.position.y + transform.localScale.y, 0), Quaternion.identity) as GameObject;
 			// laser.transform.parent = transform;
 
 			laser.rigidbody2D.velocity += new Vector2(0, 5f);

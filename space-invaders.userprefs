@@ -2,11 +2,12 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/LaserController.cs">
     <Files>
-      <File FileName="Assets/Scripts/ShipController.cs" Line="34" Column="31" />
+      <File FileName="Assets/Scripts/EnemyBehavior.cs" Line="12" Column="4" />
+      <File FileName="Assets/Scripts/ShipController.cs" Line="6" Column="29" />
       <File FileName="Assets/Scripts/LevelManager.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/EnemyGenerator.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Formation.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/LaserController.cs" Line="14" Column="22" />
+      <File FileName="Assets/Scripts/LaserController.cs" Line="9" Column="94" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
