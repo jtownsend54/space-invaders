@@ -3,15 +3,19 @@ using System.Collections;
 
 public class EnemyBehavior : MonoBehaviour {
 	public float health = 150f;
-	public float fireRate = 0.5f;
+	public float fireRate = 0.0f;
 	public GameObject laserPrefab;
+	private Formation parentFormation;
+
+	void Start() {
+		parentFormation = transform.parent.transform.parent.GetComponent<Formation>();
+//		Debug.Log(transform.parent.transform.parent.GetComponent<Formation>());
+	}
 
 	void Update() {
 		// Time.deltaTime is the time it took to go through a single frame. This helps to convert our probability to be frame
 		// rate independent. The enemy should be shooting .5 shots every second (1 shot every two seconds), but we use a random 
 		// value to make this more natural.
-		Debug.Log (Random.value);
-		Debug.Log (fireRate * Time.deltaTime);
 		if (Random.value <= fireRate * Time.deltaTime) {
 			shootLaser ();
 		}
@@ -25,6 +29,7 @@ public class EnemyBehavior : MonoBehaviour {
 		}
 
 		if (laser.damage >= health) {
+			parentFormation.enemyCount--;
 			Destroy (gameObject);
 		} else {
 			health -= laser.damage;
