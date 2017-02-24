@@ -30,7 +30,7 @@ public class EnemyBehavior : MonoBehaviour {
 			health -= laser.damage;
 		}
 
-		Destroy (laser);
+		Destroy (laser.gameObject);
 	}
 
 	void shootLaser() {

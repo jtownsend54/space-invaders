@@ -27,7 +27,7 @@ public class ShipController : MonoBehaviour {
 			health -= laser.damage;
 		}
 		
-		Destroy (laser);
+		Destroy (laser.gameObject);
 	}
 
 	private void moveShip() {
