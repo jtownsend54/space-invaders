@@ -5,6 +5,8 @@ public class Formation : MonoBehaviour {
 	public float speed = 20f;
 	public float width = 10f;
 	public float height = 5f;
+	public float spawnDelay = 0.5f;
+
 	private float direction = -1f;
 	public int enemyCount;
 
@@ -14,7 +16,7 @@ public class Formation : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		SpawnEnemies ();
+		SpawnUntilFull ();
 	}
 	
 	// Update is called once per frame
@@ -29,16 +31,43 @@ public class Formation : MonoBehaviour {
 
 		if (enemyCount == 0) {
 			Debug.Log ("Formation Destroyed");
-			SpawnEnemies();
+			SpawnUntilFull();
 		}
 	}
 
-	void SpawnEnemies() {
-		foreach (Transform child in transform) {
-			child.GetComponent<EnemyGenerator>().AddEnemy();
+//	void SpawnEnemies() {
+//		foreach (Transform child in transform) {
+//			child.GetComponent<EnemyGenerator>().AddEnemy();
+//		}
+//
+//		// Reset the enemy count
+//		enemyCount = transform.childCount;
+//	}
+
+	void SpawnUntilFull() {
+		Transform freePosition = NextFreePosition ();
+
+		// May not have a free position open yet
+		if (!(freePosition is Transform)) {
+			return;
 		}
 
-		// Reset the enemy count
-		enemyCount = transform.childCount;
+		freePosition.GetComponent<EnemyGenerator>().AddEnemy();
+		enemyCount++;
+
+		// Create some delay before the next enemy is spawned
+		if (NextFreePosition ()) {
+			Invoke ("SpawnUntilFull", spawnDelay);
+		}
+	}
+
+	Transform NextFreePosition() {
+		foreach (Transform child in transform) {
+			if (child.childCount <= 0) {
+				return child;
+			}
+		}
+
+		return null;
 	}
 }
