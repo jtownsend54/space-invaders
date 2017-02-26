@@ -52,8 +52,8 @@ public class Formation : MonoBehaviour {
 			return;
 		}
 
-		freePosition.GetComponent<EnemyGenerator>().AddEnemy();
 		enemyCount++;
+		freePosition.GetComponent<EnemyGenerator>().AddEnemy();
 
 		// Create some delay before the next enemy is spawned
 		if (NextFreePosition ()) {
