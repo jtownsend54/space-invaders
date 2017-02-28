@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
+//using UnityEngine.
 using System.Collections;
 
 public class ShipController : MonoBehaviour {
 	public float speed = 5.0f;
 	public float health = 250f;
 	public GameObject laserPrefab;
+	public AudioClip fire;
 
 	private float padding = 0.5f;
 
@@ -54,6 +56,8 @@ public class ShipController : MonoBehaviour {
 			// laser.transform.parent = transform;
 
 			laser.rigidbody2D.velocity += new Vector2(0, 5f);
+
+			AudioSource.PlayClipAtPoint(fire, transform.position);
 		}
 	}
 }

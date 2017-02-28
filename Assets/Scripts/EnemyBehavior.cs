@@ -5,11 +5,20 @@ public class EnemyBehavior : MonoBehaviour {
 	public float health = 150f;
 	public float fireRate = 0.0f;
 	public GameObject laserPrefab;
+	public int points = 150;
+	public AudioClip fire;
+	public AudioClip explode;
+
 	private Formation parentFormation;
+	private ScoreKeeper scoreKeeper;
 
 	void Start() {
 		parentFormation = transform.parent.transform.parent.GetComponent<Formation>();
-//		Debug.Log(transform.parent.transform.parent.GetComponent<Formation>());
+		scoreKeeper = GameObject.Find("Score").GetComponent<ScoreKeeper>();
+
+		Component[] sounds = GetComponents<AudioSource>();
+
+		Debug.Log (sounds);
 	}
 
 	void Update() {
@@ -30,6 +39,8 @@ public class EnemyBehavior : MonoBehaviour {
 
 		if (laser.damage >= health) {
 			parentFormation.enemyCount--;
+			scoreKeeper.AddScore(points);
+			AudioSource.PlayClipAtPoint (explode, transform.position);
 			Destroy (gameObject);
 		} else {
 			health -= laser.damage;
@@ -41,5 +52,6 @@ public class EnemyBehavior : MonoBehaviour {
 	void shootLaser() {
 		GameObject laser = Instantiate(laserPrefab, new Vector3(transform.position.x, transform.position.y-1, 0), Quaternion.identity) as GameObject;
 		laser.rigidbody2D.velocity += new Vector2(0, -5f);
+		AudioSource.PlayClipAtPoint (fire, transform.position);
 	}
 }
