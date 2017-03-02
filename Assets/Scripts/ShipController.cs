@@ -25,6 +25,8 @@ public class ShipController : MonoBehaviour {
 		
 		if (laser.damage >= health) {
 			Destroy (gameObject);
+			LevelManager manager = GameObject.Find ("LevelManager").GetComponent<LevelManager>();
+			manager.LoadLevel("Win");
 		} else {
 			health -= laser.damage;
 		}
