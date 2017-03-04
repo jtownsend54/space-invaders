@@ -49,7 +49,7 @@ public class EnemyBehavior : MonoBehaviour {
 		Destroy (laser.gameObject);
 	}
 
-	void shootLaser() {
+	public virtual void shootLaser() {
 		GameObject laser = Instantiate(laserPrefab, new Vector3(transform.position.x, transform.position.y-1, 0), Quaternion.identity) as GameObject;
 		laser.rigidbody2D.velocity += new Vector2(0, -5f);
 		AudioSource.PlayClipAtPoint (fire, transform.position);
