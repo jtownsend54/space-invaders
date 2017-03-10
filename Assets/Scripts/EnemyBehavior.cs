@@ -15,10 +15,6 @@ public class EnemyBehavior : MonoBehaviour {
 	void Start() {
 		parentFormation = transform.parent.transform.parent.GetComponent<Formation>();
 		scoreKeeper = GameObject.Find("Score").GetComponent<ScoreKeeper>();
-
-		Component[] sounds = GetComponents<AudioSource>();
-
-		Debug.Log (sounds);
 	}
 
 	void Update() {

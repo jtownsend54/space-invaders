@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-//using UnityEngine.
+using UnityEngine.UI;
 using System.Collections;
 
 public class ShipController : MonoBehaviour {
@@ -7,8 +7,14 @@ public class ShipController : MonoBehaviour {
 	public float health = 250f;
 	public GameObject laserPrefab;
 	public AudioClip fire;
+	public Text healthText;
 
 	private float padding = 0.5f;
+
+	void Start() {
+		healthText = GameObject.Find ("Health").GetComponent<Text> ();
+		healthText.text = "Health: " + health.ToString ();
+	}
 
 	// Update is called once per frame
 	void Update () {
@@ -26,9 +32,10 @@ public class ShipController : MonoBehaviour {
 		if (laser.damage >= health) {
 			Destroy (gameObject);
 			LevelManager manager = GameObject.Find ("LevelManager").GetComponent<LevelManager>();
-			manager.LoadLevel("Win");
+			manager.LoadLevel("Lose");
 		} else {
 			health -= laser.damage;
+			healthText.text = "Health: " + health.ToString();
 		}
 		
 		Destroy (laser.gameObject);

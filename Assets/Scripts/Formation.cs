@@ -1,14 +1,26 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Formation : MonoBehaviour {
 	public float speed = 20f;
 	public float width = 10f;
 	public float height = 5f;
-	public float spawnDelay = 0.5f;
+	public float spawnDelay = 0.1f;
+	public static int currentLevel;
+	public int enemyCount;
 
 	private float direction = -1f;
-	public int enemyCount;
+	
+	private int[,] waves = new int[,] {
+		{1, 1, 1, 1},
+		{1, 1, 1, 1},
+		{1, 1, 2, 2},
+		{1, 1, 2, 2},
+		{2, 2, 2, 3},
+		{2, 2, 3, 3},
+		{3, 3, 3, 3},
+	};
 
 	void OnDrawGizmos() {
 		Gizmos.DrawWireCube (transform.position, new Vector3 (width, height, 0));
@@ -16,7 +28,9 @@ public class Formation : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		SpawnUntilFull ();
+		Formation.currentLevel = 0;
+		UpdateWaveText();
+		SpawnUntilFull();
 	}
 	
 	// Update is called once per frame
@@ -30,19 +44,18 @@ public class Formation : MonoBehaviour {
 		transform.position = new Vector3 (Mathf.Clamp (transform.position.x, LevelManager.minX + (width / 2f), LevelManager.maxX - (width / 2f)), transform.position.y, 0);
 
 		if (enemyCount == 0) {
-			Debug.Log ("Formation Destroyed");
+			Formation.currentLevel++;
+
+			if (Formation.currentLevel >= waves.GetUpperBound(0) + 1) {
+				LevelManager manager = GameObject.Find ("LevelManager").GetComponent<LevelManager>();
+				manager.LoadLevel("Win");
+				return;
+			}
+
+			UpdateWaveText();
 			SpawnUntilFull();
 		}
 	}
-
-//	void SpawnEnemies() {
-//		foreach (Transform child in transform) {
-//			child.GetComponent<EnemyGenerator>().AddEnemy();
-//		}
-//
-//		// Reset the enemy count
-//		enemyCount = transform.childCount;
-//	}
 
 	void SpawnUntilFull() {
 		Transform freePosition = NextFreePosition ();
@@ -53,7 +66,11 @@ public class Formation : MonoBehaviour {
 		}
 
 		enemyCount++;
-		freePosition.GetComponent<EnemyGenerator>().AddEnemy();
+		int enemyIdx 			= Random.Range (0, 3);
+		int enemyNumber 		= (waves [Formation.currentLevel, enemyIdx]) - 1;
+		//waves [Formation.currentLevel].
+
+		freePosition.GetComponent<EnemyGenerator>().AddEnemy(enemyNumber);
 
 		// Create some delay before the next enemy is spawned
 		if (NextFreePosition ()) {
@@ -69,5 +86,10 @@ public class Formation : MonoBehaviour {
 		}
 
 		return null;
+	}
+
+	void UpdateWaveText() {
+		int wave = Formation.currentLevel + 1;
+		GameObject.Find ("Wave").GetComponent<Text> ().text = "Wave " + wave;
 	}
 }
