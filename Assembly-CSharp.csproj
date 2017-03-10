@@ -46,8 +46,10 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\BossSpawn.cs" />
      <Compile Include="Assets\Scripts\EnemyBehavior.cs" />
      <Compile Include="Assets\Scripts\EnemyBomberBehavior.cs" />
+     <Compile Include="Assets\Scripts\EnemyBossBehavior.cs" />
      <Compile Include="Assets\Scripts\EnemyFighterBehavior.cs" />
      <Compile Include="Assets\Scripts\EnemyGenerator.cs" />
      <Compile Include="Assets\Scripts\Formation.cs" />

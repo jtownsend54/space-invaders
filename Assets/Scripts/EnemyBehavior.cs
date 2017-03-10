@@ -10,10 +10,9 @@ public class EnemyBehavior : MonoBehaviour {
 	public AudioClip explode;
 
 	private Formation parentFormation;
-	private ScoreKeeper scoreKeeper;
+	protected ScoreKeeper scoreKeeper;
 
 	void Start() {
-		parentFormation = transform.parent.transform.parent.GetComponent<Formation>();
 		scoreKeeper = GameObject.Find("Score").GetComponent<ScoreKeeper>();
 	}
 
@@ -34,7 +33,7 @@ public class EnemyBehavior : MonoBehaviour {
 		}
 
 		if (laser.damage >= health) {
-			parentFormation.enemyCount--;
+			transform.parent.transform.parent.GetComponent<Formation>().enemyCount--;
 			scoreKeeper.AddScore(points);
 			AudioSource.PlayClipAtPoint (explode, transform.position);
 			Destroy (gameObject);

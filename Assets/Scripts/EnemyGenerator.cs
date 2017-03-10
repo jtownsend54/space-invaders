@@ -17,10 +17,7 @@ public class EnemyGenerator : MonoBehaviour {
 	}
 
 	public void AddEnemy(int enemyNumber) {
-
-
-		GameObject enemyToAdd 	= enemies[enemyNumber];
-
+		GameObject enemyToAdd 		= enemies[enemyNumber];
 		GameObject enemy 			= Instantiate(enemyToAdd, new Vector3 (transform.position.x, transform.position.y, 0), Quaternion.identity) as GameObject;
 		enemy.transform.position 	= transform.position;
 		enemy.transform.parent 		= transform;
