@@ -2,13 +2,23 @@
 using System.Collections;
 
 public class EnemyBossBehavior : EnemyBehavior {
+	public GameObject leftLaser;
+	public GameObject rightLaser;
+	public float fireRange;
+
+	private float direction = -1f;
+
 	void Start() {
 		scoreKeeper = GameObject.Find("Score").GetComponent<ScoreKeeper>();
 	}
 
-	public virtual void shootLaser() {
-		GameObject laser = Instantiate(laserPrefab, new Vector3(transform.position.x, transform.position.y-1, 0), Quaternion.identity) as GameObject;
-		laser.rigidbody2D.velocity += new Vector2(0, -5f);
+	public override void shootLaser() {
+		GameObject laser = Instantiate(laserPrefab, leftLaser.transform.position, Quaternion.identity) as GameObject;
+		laser.rigidbody2D.velocity += new Vector2(Random.Range(-fireRange, fireRange), -5f);
+
+		GameObject laser2 = Instantiate(laserPrefab, rightLaser.transform.position, Quaternion.identity) as GameObject;
+		laser2.rigidbody2D.velocity += new Vector2(Random.Range(-fireRange, fireRange), -5f);
+
 		AudioSource.PlayClipAtPoint (fire, transform.position);
 	}
 
