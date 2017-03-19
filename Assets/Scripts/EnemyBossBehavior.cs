@@ -6,18 +6,16 @@ public class EnemyBossBehavior : EnemyBehavior {
 	public GameObject rightLaser;
 	public float fireRange;
 
-	private float direction = -1f;
-
 	void Start() {
 		scoreKeeper = GameObject.Find("Score").GetComponent<ScoreKeeper>();
 	}
 
 	public override void shootLaser() {
 		GameObject laser = Instantiate(laserPrefab, leftLaser.transform.position, Quaternion.identity) as GameObject;
-		laser.rigidbody2D.velocity += new Vector2(Random.Range(-fireRange, fireRange), -5f);
+		laser.GetComponent<Rigidbody2D>().velocity += new Vector2(Random.Range(-fireRange, fireRange), -5f);
 
 		GameObject laser2 = Instantiate(laserPrefab, rightLaser.transform.position, Quaternion.identity) as GameObject;
-		laser2.rigidbody2D.velocity += new Vector2(Random.Range(-fireRange, fireRange), -5f);
+		laser2.GetComponent<Rigidbody2D>().velocity += new Vector2(Random.Range(-fireRange, fireRange), -5f);
 
 		AudioSource.PlayClipAtPoint (fire, transform.position);
 	}

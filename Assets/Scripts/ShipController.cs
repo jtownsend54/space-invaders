@@ -64,7 +64,7 @@ public class ShipController : MonoBehaviour {
 			GameObject laser = Instantiate(laserPrefab, new Vector3(transform.position.x, transform.position.y + transform.localScale.y, 0), Quaternion.identity) as GameObject;
 			// laser.transform.parent = transform;
 
-			laser.rigidbody2D.velocity += new Vector2(0, 5f);
+			laser.GetComponent<Rigidbody2D>().velocity += new Vector2(0, 5f);
 
 			AudioSource.PlayClipAtPoint(fire, transform.position);
 		}
